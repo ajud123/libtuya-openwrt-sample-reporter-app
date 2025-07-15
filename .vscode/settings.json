@@ -1,0 +1,19 @@
+{
+        "files.associations": {
+                "utils.h": "c",
+                "sysinfo.h": "c",
+                "math.h": "c",
+                "syslog.h": "c",
+                "log.h": "c",
+                "unistd.h": "c",
+                "tuya_wrapper.h": "c",
+                "blobmsg_json.h": "c",
+                "libubus.h": "c",
+                "ubus.h": "c",
+                "tuya_cacert.h": "c",
+                "tuya_error_code.h": "c",
+                "tuyalink_core.h": "c",
+                "ubus_wrapper.h": "c",
+                "stdlib.h": "c"
+        }
+}

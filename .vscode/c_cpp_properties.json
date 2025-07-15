@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/src/**",
+                "/home/studentas/rutos/rutos-ipq40xx-rutx-sdk/package/**",
+                "/home/studentas/part-6/tuya-iot-core-sdk/**",
+                "/home/studentas/rutos/rutos-ipq40xx-rutx-sdk/build_dir/target-arm_cortex-a7+neon-vfpv4_musl_eabi/libubox-2024-03-29-eb9bcb64/**",
+                "/home/studentas/rutos/rutos-ipq40xx-rutx-sdk/build_dir/target-arm_cortex-a7+neon-vfpv4_musl_eabi/ubus-2021-06-30-4fc532c8/**",
+                "/home/studentas/rutos/rutos-ipq40xx-rutx-sdk/staging_dir/host/include/"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerArgs": [
+                "-Wall -Wextra"
+            ]
+        }
+    ],
+    "version": 4
+}
