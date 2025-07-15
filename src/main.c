@@ -20,6 +20,11 @@ void handle_exit(int signum)
 
 int main(int argc, char **argv)
 {
+        signal(SIGINT, handle_exit);
+        signal(SIGTERM, handle_exit);
+        signal(SIGQUIT, handle_exit);
+        signal(SIGABRT, handle_exit);
+        
         char productId[128];
         char deviceId[128];
         char deviceSecret[128];
@@ -33,10 +38,6 @@ int main(int argc, char **argv)
                 return args_state;
         }
 
-        signal(SIGINT, handle_exit);
-	signal(SIGTERM, handle_exit);
-	signal(SIGQUIT, handle_exit);
-	signal(SIGABRT, handle_exit);
 
 
         if(daemon){

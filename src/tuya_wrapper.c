@@ -82,15 +82,6 @@ int report_memory_info(struct ubus_context *ctx, tuya_mqtt_context_t *client, st
         tuyalink_thing_property_report(client, NULL, msg);
         free(msg);
         return 0;
-	// struct system_info info;
-	// int status = get_system_info(&info);
-	// if (status == 0) {
-	// 	char *msg = generate_system_info_json_string(&info);
-	// 	tuyalink_thing_property_report(&client_instance, NULL, msg);
-	// 	free(msg);
-	// 	return 0;
-	// }
-	// return 1;
 }
 
 void tuya_stop(tuya_mqtt_context_t *client)
