@@ -19,10 +19,6 @@ start_service() {
                 config_get productId reporter 'productId' '-'
                 config_get deviceId reporter 'deviceId' '-'
                 config_get deviceSecret reporter 'deviceSecret' '-'
-                config_get isDaemon reporter 'daemon' '0'
-                if [ "$isDaemon" = '1' ]; then
-                        procd_append_param command '-b'
-                fi
 
                 procd_open_instance
                 procd_set_param command /usr/bin/tuyareporter -p "$productId" -d "$deviceId" -s "$deviceSecret"
