@@ -7,7 +7,8 @@ LDFLAGS:= \
 	-largp \
 	-lblobmsg_json \
 	-lubox \
-	-lubus
+	-lubus \
+	-luci
 CPPFLAGS:= -I$(CURDIR) -Wall -Wextra -Werror
 SRC:= $(wildcard *.c)
 OBJS:= $(SRC:.c=.o)

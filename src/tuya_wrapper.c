@@ -84,6 +84,38 @@ int report_memory_info(struct ubus_context *ctx, tuya_mqtt_context_t *client, st
         return 0;
 }
 
+/*
+ * Reports the current network interfaces.
+ * Returns 0 on success
+ * Returns 1 if getting network interfaces failed
+ */
+int report_network_info(struct ubus_context *ctx, tuya_mqtt_context_t *client, struct if_list **interfaces)
+{
+        int status = get_network_interfaces(interfaces);
+        if(status != 0){
+                syslog(LOG_ERR, "Could not get network interface names.");
+                delete_interface_list(interfaces);
+                return 1;
+        }
+        struct if_list *interface = *interfaces;
+        while(interface != NULL){
+                status = get_network_statistics(ctx, interface);
+                if(status != 0) {
+                        syslog(LOG_ERR, "Could not get info for network interface %s.", interface->name);
+                        return 1;
+                }
+                interface = interface->next;
+        }
+        char *msg = generate_network_json_string(interfaces);
+        tuyalink_thing_property_report(client, NULL, msg);
+        syslog(LOG_INFO, "Freeing JSON message.");
+        free(msg);
+        syslog(LOG_INFO, "Deleting interface list.");
+        delete_interface_list(interfaces);
+        syslog(LOG_INFO, "Deleted interface list.");
+        return 0;
+}
+
 void tuya_stop(tuya_mqtt_context_t *client)
 {
 	tuya_mqtt_disconnect(client);

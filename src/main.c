@@ -9,6 +9,7 @@
 #include "ubus_wrapper.h"
 #include "tuya_wrapper.h"
 #include "args.h"
+#include "net_interfaces.h"
 
 static int state = 1;
 
@@ -24,7 +25,7 @@ int main(int argc, char **argv)
         signal(SIGTERM, handle_exit);
         signal(SIGQUIT, handle_exit);
         signal(SIGABRT, handle_exit);
-        
+
         char productId[128];
         char deviceId[128];
         char deviceSecret[128];
@@ -62,6 +63,7 @@ int main(int argc, char **argv)
 
         time_t last_update = 0;
         struct memory_stats stats;
+        struct if_list *interfaces;
         
         while(state == OPRT_OK) {
                 tuya_loop(&client_instance);
@@ -69,10 +71,11 @@ int main(int argc, char **argv)
                 if(current - last_update > 10) {
                         last_update = current;
                         report_memory_info(ctx, &client_instance, &stats);
+                        report_network_info(ctx, &client_instance, &interfaces);
                 }
         }
         syslog(LOG_INFO, "Stopping tuya reporter...");
-
+        delete_interface_list(&interfaces);
         tuya_stop(&client_instance);
         ubus_free(ctx);
 	closelog();

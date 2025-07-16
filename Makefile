@@ -9,7 +9,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/tuyareporter
 	CATEGORY:=Utilities
 	TITLE:=A simple program that reports memory usage to Tuya IoT Cloud
-	DEPENDS:=+libtuya +libubus +libubox +libblobmsg-json
+	DEPENDS:=+libtuya +libubus +libubox +libblobmsg-json +libuci
 endef
 
 define Package/tuyareporter/description
