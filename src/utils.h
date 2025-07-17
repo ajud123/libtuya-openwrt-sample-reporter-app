@@ -1,7 +1,7 @@
 #ifndef TUYAREPORTER_UTILS
 #define TUYAREPORTER_UTILS
 
-#include "net_interfaces.h"
+#include <tuyalink_core.h>
 
 struct memory_stats {
         unsigned long total;
@@ -9,8 +9,7 @@ struct memory_stats {
 };
 
 char *generate_memory_json_string(struct memory_stats *stats);
-char *generate_network_json_string(struct if_list **list);
-
+int tuyalink_report_action_rsp(tuya_mqtt_context_t* context, char *data, int errcode);
 int become_daemon();
-
+char *escape_quotes(char *input);
 #endif

@@ -3,9 +3,9 @@
 #include <libubox/blobmsg_json.h>
 #include <libubus.h>
 #include "utils.h"
-#include "net_interfaces.h"
 
-int get_memory_statistics(struct ubus_context *ctx, struct memory_stats *out);
-int get_network_statistics(struct ubus_context *ctx, struct if_list *out);
-
+int get_esp_devices_json(struct ubus_context *ctx, char **out);
+int set_esp_on(struct ubus_context *ctx, char **out, char *port, int pin);
+int set_esp_off(struct ubus_context *ctx, char **out, char *port, int pin);
+int get_esp_sensor(struct ubus_context *ctx, char **out, char *port, int pin, char *model, char *sensor);
 #endif

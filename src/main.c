@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <log.h>
 #include <syslog.h>
 #include <time.h>
 #include <signal.h>
@@ -9,7 +10,6 @@
 #include "ubus_wrapper.h"
 #include "tuya_wrapper.h"
 #include "args.h"
-#include "net_interfaces.h"
 
 static int state = 1;
 
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
                 return args_state;
         }
 
-
+        log_set_quiet(true);
 
         if(daemon){
                 int daemon_status = become_daemon();
@@ -57,25 +57,14 @@ int main(int argc, char **argv)
         }
         tuya_mqtt_context_t client_instance;
 
-        state = tuya_start(&client_instance, deviceSecret, deviceId);
+        state = tuya_start(&client_instance, deviceSecret, deviceId, ctx);
         if(state != 0)
                 syslog(LOG_ERR, "Failed to start Tuya client");
 
-        time_t last_update = 0;
-        struct memory_stats stats;
-        struct if_list *interfaces;
-        
         while(state == OPRT_OK) {
                 tuya_loop(&client_instance);
-                time_t current = time(NULL);
-                if(current - last_update > 10) {
-                        last_update = current;
-                        report_memory_info(ctx, &client_instance, &stats);
-                        report_network_info(ctx, &client_instance, &interfaces);
-                }
         }
         syslog(LOG_INFO, "Stopping tuya reporter...");
-        delete_interface_list(&interfaces);
         tuya_stop(&client_instance);
         ubus_free(ctx);
 	closelog();
